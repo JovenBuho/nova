@@ -1,6 +1,7 @@
 import './style.css';
-import { loadStore, saveStore, exportJSON, importJSON } from './storage';
+import { loadStore, saveStore, saveLocalCache, exportJSON, importJSON } from './storage';
 import { alertMessage, confirmAction } from './confirm';
+import { initSync } from './sync';
 import { renderDashboard } from './screens/dashboard';
 import { renderRegistro } from './screens/registro';
 import { renderContexto } from './screens/contexto';
@@ -98,3 +99,9 @@ function render() {
 }
 
 render();
+
+initSync(store, (remoteStore) => {
+  store = remoteStore;
+  saveLocalCache(store);
+  render();
+}).catch((err) => console.error('No se pudo conectar la sincronización en la nube:', err));

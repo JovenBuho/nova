@@ -1,4 +1,5 @@
 import { PILARES, Store } from './types';
+import { pushStore } from './sync';
 
 const KEY = 'nova_data_v1';
 
@@ -24,8 +25,13 @@ export function loadStore(): Store {
   }
 }
 
-export function saveStore(store: Store): void {
+export function saveLocalCache(store: Store): void {
   localStorage.setItem(KEY, JSON.stringify(store));
+}
+
+export function saveStore(store: Store): void {
+  saveLocalCache(store);
+  pushStore(store);
 }
 
 export function exportJSON(store: Store): void {

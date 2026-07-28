@@ -1,6 +1,6 @@
 import { computeAll } from '../calc';
 import { PILARES, Store } from '../types';
-import { saveStore, todayISO } from '../storage';
+import { saveLocalCache, todayISO } from '../storage';
 
 const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -125,5 +125,5 @@ export function renderDashboard(container: HTMLElement, store: Store) {
   for (const p of PILARES) {
     store.lastSeenSuelo[p.id] = estados[p.id].suelo;
   }
-  saveStore(store);
+  saveLocalCache(store);
 }
