@@ -7,6 +7,91 @@ const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)')
 // Un valor de 0.1% mide 0 píxeles: sin suelo mínimo la barra es invisible y la UI parece muerta.
 const visibleWidth = (pct: number) => (pct > 0 ? `max(${pct}%, 6px)` : '0%');
 
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const svgEl = (tag: string, attrs: Record<string, string | number>) => {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, String(v));
+  return el;
+};
+
+/** Vértice del eje `i` (de 6) a la fracción `r` del radio, empezando arriba. */
+function vertex(i: number, r: number, radius = 100, cx = 150, cy = 150) {
+  const angle = (Math.PI * 2 * i) / 6 - Math.PI / 2;
+  return [cx + Math.cos(angle) * radius * r, cy + Math.sin(angle) * radius * r] as const;
+}
+
+function buildRadar(totals: number[]): SVGElement {
+  // Con totales de 0.1% un radar a escala 0-100 sería un punto invisible: la escala sigue al dato.
+  const scale = Math.max(1, Math.max(...totals) * 1.25);
+  const svg = svgEl('svg', { viewBox: '0 0 300 300', class: 'radar' });
+
+  for (const ring of [0.25, 0.5, 0.75, 1]) {
+    svg.appendChild(
+      svgEl('polygon', {
+        points: Array.from({ length: 6 }, (_, i) => vertex(i, ring).join(',')).join(' '),
+        class: 'radar-ring',
+      })
+    );
+  }
+
+  for (let i = 0; i < 6; i++) {
+    const [x, y] = vertex(i, 1);
+    svg.appendChild(svgEl('line', { x1: 150, y1: 150, x2: x, y2: y, class: 'radar-axis' }));
+  }
+
+  // Suelo del 8%: sin el, valores casi nulos colapsan en un punto y el poligono deja de leerse.
+  const points = totals.map((t, i) => vertex(i, Math.max(0.08, Math.min(1, t / scale))));
+  svg.appendChild(svgEl('polygon', { points: points.map((p) => p.join(',')).join(' '), class: 'radar-area' }));
+
+  for (const [x, y] of points) {
+    svg.appendChild(svgEl('circle', { cx: x, cy: y, r: 3.5, class: 'radar-dot' }));
+  }
+
+  PILARES.forEach((p, i) => {
+    const [x, y] = vertex(i, 1.22);
+    const label = svgEl('text', { x, y, class: 'radar-label', 'text-anchor': 'middle', 'dominant-baseline': 'middle' });
+    label.textContent = p.short;
+    svg.appendChild(label);
+  });
+
+  return svg;
+}
+
+/** Días consecutivos con decisiones. Hoy sin registrar no rompe la racha: el día aún no termina. */
+function streak(dates: Set<string>, today: string): number {
+  const cursor = new Date(today + 'T00:00:00');
+  if (!dates.has(today)) cursor.setDate(cursor.getDate() - 1);
+  let count = 0;
+  while (dates.has(cursor.toISOString().slice(0, 10))) {
+    count++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return count;
+}
+
+function buildStats(store: Store, today: string): HTMLElement {
+  const dates = new Set(store.decisions.map((d) => d.fecha));
+  const thisMonth = store.decisions.filter((d) => d.fecha.slice(0, 7) === today.slice(0, 7)).length;
+  const dias = streak(dates, today);
+
+  const stats = [
+    { value: String(store.decisions.length), label: 'Decisiones' },
+    { value: String(thisMonth), label: 'Este mes' },
+    { value: String(dias), label: dias === 1 ? 'Día seguido' : 'Días seguidos' },
+    { value: String(store.hitos.length), label: store.hitos.length === 1 ? 'Hito' : 'Hitos' },
+  ];
+
+  const row = document.createElement('div');
+  row.className = 'stats-row';
+  for (const s of stats) {
+    const card = document.createElement('div');
+    card.className = 'stat-card';
+    card.innerHTML = `<div class="stat-value num-tabular">${s.value}</div><div class="stat-label">${s.label}</div>`;
+    row.appendChild(card);
+  }
+  return row;
+}
+
 function animateNumber(el: HTMLElement, to: number, decimals = 1) {
   if (reduceMotion()) {
     el.textContent = to.toFixed(decimals) + '%';
@@ -59,6 +144,14 @@ export function renderDashboard(container: HTMLElement, store: Store) {
 
   container.appendChild(globalPanel);
 
+  const overview = document.createElement('div');
+  overview.className = 'overview';
+  const radarCard = document.createElement('div');
+  radarCard.className = 'radar-card';
+  radarCard.appendChild(buildRadar(PILARES.map((p) => estados[p.id].total)));
+  overview.append(radarCard, buildStats(store, today));
+  container.appendChild(overview);
+
   let consolidatedAny = false;
 
   PILARES.forEach((p, i) => {
@@ -69,11 +162,13 @@ export function renderDashboard(container: HTMLElement, store: Store) {
 
     const block = document.createElement('div');
     block.className = 'pilar-block' + (isBottleneck ? ' bottleneck' : '') + (justConsolidated && !isBottleneck ? ' consolidating' : '');
+    if (!reduceMotion()) block.style.animationDelay = i * 60 + 'ms';
 
     const head = document.createElement('div');
     head.className = 'pilar-head';
     const nameSpan = document.createElement('span');
-    nameSpan.textContent = p.label;
+    nameSpan.innerHTML = `<span class="pilar-icon">${p.icon}</span>`;
+    nameSpan.append(p.label);
     if (estado.isDecaying) {
       const flag = document.createElement('span');
       flag.className = 'decay-flag';

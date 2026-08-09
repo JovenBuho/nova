@@ -6,13 +6,13 @@ export type PilarId =
   | 'soberania_material'
   | 'presencia_fisica';
 
-export const PILARES: { id: PilarId; label: string }[] = [
-  { id: 'presencia_confianza', label: 'Presencia y confianza' },
-  { id: 'liderazgo_personal', label: 'Liderazgo personal' },
-  { id: 'limites_asertividad', label: 'Límites y asertividad' },
-  { id: 'tolerancia_incertidumbre', label: 'Tolerancia a la incertidumbre' },
-  { id: 'soberania_material', label: 'Soberanía material' },
-  { id: 'presencia_fisica', label: 'Presencia física' },
+export const PILARES: { id: PilarId; label: string; icon: string; short: string }[] = [
+  { id: 'presencia_confianza', label: 'Presencia y confianza', icon: '◈', short: 'Presencia' },
+  { id: 'liderazgo_personal', label: 'Liderazgo personal', icon: '⬢', short: 'Liderazgo' },
+  { id: 'limites_asertividad', label: 'Límites y asertividad', icon: '⊘', short: 'Límites' },
+  { id: 'tolerancia_incertidumbre', label: 'Tolerancia a la incertidumbre', icon: '◐', short: 'Incertidumbre' },
+  { id: 'soberania_material', label: 'Soberanía material', icon: '▲', short: 'Soberanía' },
+  { id: 'presencia_fisica', label: 'Presencia física', icon: '✦', short: 'Físico' },
 ];
 
 export const PILARES_COHERENCIA: PilarId[] = ['soberania_material', 'presencia_fisica'];
