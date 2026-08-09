@@ -9,7 +9,8 @@
   --gr-warn: #ff1744;
   --gr-text: #f5f5f5;
   --gr-text-dim: #999999;
-  --gr-bottleneck: #555555;
+  --gr-bottleneck: #ff9100;
+  --gr-bottleneck-glow: rgba(255, 145, 0, 0.75);
   --gr-border: rgba(255, 255, 255, 0.08);
   --gr-glass-blur: blur(20px) saturate(160%);
   --font-display: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
@@ -137,14 +138,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0 0 8px
 }
 
 .pilar-block.bottleneck .bar-suelo {
-  box-shadow: none;
   background: var(--gr-bottleneck);
-  filter: saturate(0.6);
+  box-shadow: 0 0 12px var(--gr-bottleneck-glow) inset;
 }
 .pilar-block.bottleneck .bar-superficie {
-  background: rgba(100, 116, 139, 0.35);
+  background: rgba(255, 145, 0, 0.35);
 }
-.pilar-block.bottleneck .pilar-percent { color: var(--gr-bottleneck); }
+.pilar-block.bottleneck .pilar-percent {
+  color: var(--gr-bottleneck);
+  text-shadow: 0 0 10px var(--gr-bottleneck-glow);
+}
 
 .pilar-block {
   margin-bottom: 22px;
@@ -406,7 +409,7 @@ th { color: var(--gr-text-dim); font-weight: 500; text-transform: uppercase; fon
   text-shadow: 0 0 8px var(--gr-suelo-glow);
 }
 
-.pilar-block.bottleneck .pilar-icon { color: var(--gr-bottleneck); text-shadow: none; }
+.pilar-block.bottleneck .pilar-icon { color: var(--gr-bottleneck); text-shadow: 0 0 8px var(--gr-bottleneck-glow); }
 
 /* --- Movimiento --- */
 
