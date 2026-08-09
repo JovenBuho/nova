@@ -11,7 +11,7 @@ export const PILARES: { id: PilarId; label: string; icon: string; short: string 
   { id: 'liderazgo_personal', label: 'Liderazgo personal', icon: '⬢', short: 'Liderazgo' },
   { id: 'limites_asertividad', label: 'Límites y asertividad', icon: '⊘', short: 'Límites' },
   { id: 'tolerancia_incertidumbre', label: 'Tolerancia a la incertidumbre', icon: '◐', short: 'Incertidumbre' },
-  { id: 'soberania_material', label: 'Soberanía material', icon: '▲', short: 'Soberanía' },
+  { id: 'soberania_material', label: 'Riqueza material', icon: '$', short: 'Riqueza' },
   { id: 'presencia_fisica', label: 'Cuidado personal', icon: '✦', short: 'Cuidado' },
 ];
 
