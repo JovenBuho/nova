@@ -320,8 +320,8 @@ select.gr-select-native {
 
 .gr-select-option:hover {
   background: var(--gr-purple);
-  color: #000000;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff;
 }
 
 .gr-select-option.active {
@@ -330,8 +330,8 @@ select.gr-select-native {
 }
 
 .gr-select-option.active:hover {
-  color: #000000;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff;
 }
 
 textarea { resize: vertical; min-height: 54px; }
