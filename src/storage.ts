@@ -1,7 +1,8 @@
 import { PILARES, Store } from './types';
 import { pushStore } from './sync';
 
-const KEY = 'nova_data_v1';
+const KEY = 'giuliano_rose_data_v1';
+const OLD_KEY = 'nova_data_v1';
 
 function emptyStore(): Store {
   const contexto = {} as Store['contexto'];
@@ -14,7 +15,7 @@ function emptyStore(): Store {
 }
 
 export function loadStore(): Store {
-  const raw = localStorage.getItem(KEY);
+  const raw = localStorage.getItem(KEY) ?? localStorage.getItem(OLD_KEY);
   if (!raw) return emptyStore();
   try {
     const parsed = JSON.parse(raw);
@@ -39,7 +40,7 @@ export function exportJSON(store: Store): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `nova-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `giuliano-rose-backup-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }

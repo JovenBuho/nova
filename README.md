@@ -1,4 +1,4 @@
-# NOVA
+# Giuliano Rose
 
 Sistema de progresión de identidad personal. Mide decisiones, no tareas.
 

@@ -1,4 +1,4 @@
-name: Deploy NOVA a GitHub Pages
+name: Deploy Giuliano Rose a GitHub Pages
 
 on:
   push:

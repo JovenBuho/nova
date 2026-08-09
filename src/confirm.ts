@@ -7,7 +7,7 @@ function buildOverlay(message: string, buttons: { label: string; className: stri
 
   const box = document.createElement('div');
   box.style.cssText =
-    'background:var(--nova-bg-panel);backdrop-filter:var(--nova-glass-blur);-webkit-backdrop-filter:var(--nova-glass-blur);border:1px solid var(--nova-purple);border-radius:10px;padding:20px 24px;max-width:360px;font-family:var(--font-body);color:var(--nova-text);box-shadow:0 0 24px var(--nova-suelo-glow);';
+    'background:var(--gr-bg-panel);backdrop-filter:var(--gr-glass-blur);-webkit-backdrop-filter:var(--gr-glass-blur);border:1px solid var(--gr-purple);border-radius:10px;padding:20px 24px;max-width:360px;font-family:var(--font-body);color:var(--gr-text);box-shadow:0 0 24px var(--gr-suelo-glow);';
 
   const p = document.createElement('div');
   p.textContent = message;

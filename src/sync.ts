@@ -15,13 +15,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storeRef = doc(db, 'nova', 'store');
+const storeRef = doc(db, 'giuliano-rose', 'store');
+const oldStoreRef = doc(db, 'nova', 'store');
 
 export async function initSync(localStore: Store, onRemoteUpdate: (store: Store) => void): Promise<void> {
   await signInAnonymously(auth);
   const snapshot = await getDoc(storeRef);
   if (!snapshot.exists()) {
-    await setDoc(storeRef, localStore);
+    const oldSnapshot = await getDoc(oldStoreRef);
+    await setDoc(storeRef, oldSnapshot.exists() ? (oldSnapshot.data() as Store) : localStore);
   }
   onSnapshot(storeRef, (snap) => {
     if (snap.exists()) {
