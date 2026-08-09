@@ -1,16 +1,16 @@
 :root {
-  --nova-bg: #0a0e17;
-  --nova-bg-panel: #10141f;
-  --nova-purple: #a855f7;
-  --nova-suelo: #7c3aed;
-  --nova-suelo-glow: rgba(124, 58, 237, 0.55);
-  --nova-superficie: #c4b5fd;
-  --nova-superficie-alpha: rgba(196, 181, 253, 0.4);
-  --nova-warn: #5eead4;
-  --nova-text: #e2e8f0;
-  --nova-text-dim: #94a3b8;
-  --nova-bottleneck: #64748b;
-  --nova-border: #1f2534;
+  --nova-bg: #000000;
+  --nova-bg-panel: #0a0a0a;
+  --nova-purple: #ff1744;
+  --nova-suelo: #ff0033;
+  --nova-suelo-glow: rgba(255, 0, 51, 0.75);
+  --nova-superficie: #ff6b81;
+  --nova-superficie-alpha: rgba(255, 23, 68, 0.45);
+  --nova-warn: #ff1744;
+  --nova-text: #f5f5f5;
+  --nova-text-dim: #999999;
+  --nova-bottleneck: #555555;
+  --nova-border: #2a0508;
   --font-display: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
@@ -55,6 +55,7 @@ nav.tabs button {
 nav.tabs button.active {
   color: var(--nova-purple);
   border-bottom-color: var(--nova-purple);
+  text-shadow: 0 0 8px var(--nova-suelo-glow);
 }
 
 nav.tabs button:hover { color: var(--nova-text); }
@@ -75,6 +76,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0 0 8px
   font-weight: 700;
   color: var(--nova-purple);
   line-height: 1;
+  text-shadow: 0 0 12px var(--nova-suelo-glow), 0 0 32px var(--nova-suelo-glow);
 }
 
 .bottleneck-label {
@@ -232,7 +234,7 @@ textarea { resize: vertical; min-height: 54px; }
 
 button.primary {
   background: var(--nova-purple);
-  color: #0a0e17;
+  color: #000000;
   border: none;
   border-radius: 6px;
   padding: 10px 16px;
@@ -240,6 +242,7 @@ button.primary {
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.03em;
+  box-shadow: 0 0 10px var(--nova-suelo-glow), 0 0 24px var(--nova-suelo-glow);
 }
 
 button.secondary {
@@ -258,7 +261,7 @@ th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--nov
 th { color: var(--nova-text-dim); font-weight: 500; text-transform: uppercase; font-size: 11px; letter-spacing: 0.04em; }
 
 .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; }
-.pill.suma { background: rgba(124,58,237,0.2); color: var(--nova-superficie); }
+.pill.suma { background: rgba(220,38,38,0.2); color: var(--nova-superficie); }
 .pill.resta { background: rgba(94,234,212,0.12); color: var(--nova-warn); }
 
 .contexto-field { margin-bottom: 20px; }

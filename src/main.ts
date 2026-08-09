@@ -14,7 +14,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'dashboard', label: 'Dashboard' },
   { id: 'registro', label: 'Registro' },
   { id: 'contexto', label: 'Contexto de partida' },
-  { id: 'rasgos', label: 'Rasgos de Nova' },
+  { id: 'rasgos', label: 'Rasgos de Giuliano Rose' },
   { id: 'hitos', label: 'Hitos' },
 ];
 
@@ -90,7 +90,7 @@ function render() {
       saveStore(store);
       render();
     } catch {
-      await alertMessage('El archivo no es un respaldo válido de NOVA.');
+      await alertMessage('El archivo no es un respaldo válido de Giuliano Rose.');
     }
   });
 
