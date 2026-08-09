@@ -254,15 +254,84 @@ input, select, textarea {
   font-size: 14px;
 }
 
-/* El navegador pinta <option> en blanco/negro por defecto si no se fija color-scheme. */
-select { color-scheme: dark; }
-select option {
-  background: #140406;
-  color: var(--gr-text);
+/* Dropdown propio: <option>:hover no es estilable en navegadores, esto sí lo es. */
+.gr-select {
+  position: relative;
 }
-select option:checked {
+
+select.gr-select-native {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gr-select-trigger {
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--gr-border);
+  border-radius: 6px;
+  color: var(--gr-text);
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.gr-select-trigger::after {
+  content: '▾';
+  float: right;
+  color: var(--gr-text-dim);
+}
+
+.gr-select-trigger:hover,
+.gr-select-trigger.open {
+  border-color: var(--gr-purple);
+  box-shadow: 0 0 0 3px rgba(255, 23, 68, 0.15);
+}
+
+.gr-select-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: #140406;
+  backdrop-filter: var(--gr-glass-blur);
+  -webkit-backdrop-filter: var(--gr-glass-blur);
+  border: 1px solid var(--gr-purple);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.7), 0 0 20px var(--gr-suelo-glow);
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.gr-select-option {
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: var(--gr-text);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, text-shadow 120ms ease;
+}
+
+.gr-select-option:hover {
   background: var(--gr-purple);
   color: #000000;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.gr-select-option.active {
+  color: var(--gr-purple);
+  text-shadow: 0 0 8px var(--gr-suelo-glow);
+}
+
+.gr-select-option.active:hover {
+  color: #000000;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
 textarea { resize: vertical; min-height: 54px; }

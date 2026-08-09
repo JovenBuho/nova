@@ -1,6 +1,7 @@
 import { Decision, ManualEdit, PILARES, PILARES_COHERENCIA, Store, TIPOS, Tipo } from '../types';
 import { saveStore, todayISO, uid } from '../storage';
 import { alertMessage, confirmAction } from '../confirm';
+import { enhanceSelect } from '../customSelect';
 
 export function renderRegistro(container: HTMLElement, store: Store, refresh: () => void) {
   container.innerHTML = '';
@@ -27,7 +28,7 @@ export function renderRegistro(container: HTMLElement, store: Store, refresh: ()
     opt.textContent = p.label;
     pilarSelect.appendChild(opt);
   }
-  pilarLabel.appendChild(pilarSelect);
+  pilarLabel.appendChild(enhanceSelect(pilarSelect));
 
   row1.append(fechaLabel, pilarLabel);
   form.appendChild(row1);
@@ -58,7 +59,7 @@ export function renderRegistro(container: HTMLElement, store: Store, refresh: ()
     opt.textContent = TIPOS[t].label;
     tipoSelect.appendChild(opt);
   });
-  tipoLabel.appendChild(tipoSelect);
+  tipoLabel.appendChild(enhanceSelect(tipoSelect));
 
   const signoLabel = document.createElement('label');
   signoLabel.textContent = 'Signo';
@@ -69,7 +70,7 @@ export function renderRegistro(container: HTMLElement, store: Store, refresh: ()
     opt.textContent = t;
     signoSelect.appendChild(opt);
   });
-  signoLabel.appendChild(signoSelect);
+  signoLabel.appendChild(enhanceSelect(signoSelect));
 
   row2.append(tipoLabel, signoLabel);
   form.appendChild(row2);
@@ -117,7 +118,7 @@ export function renderRegistro(container: HTMLElement, store: Store, refresh: ()
     opt.textContent = t;
     coherenciaSelect.appendChild(opt);
   });
-  coherenciaWrap.appendChild(coherenciaSelect);
+  coherenciaWrap.appendChild(enhanceSelect(coherenciaSelect));
   coherenciaWrap.style.display = 'none';
   form.appendChild(coherenciaWrap);
 
@@ -249,7 +250,7 @@ export function renderRegistro(container: HTMLElement, store: Store, refresh: ()
     saveStore(store);
     refresh();
   });
-  manualForm.append(manualPilar, manualDelta, manualMotivo, manualBtn);
+  manualForm.append(enhanceSelect(manualPilar), manualDelta, manualMotivo, manualBtn);
   container.appendChild(manualForm);
 }
 
