@@ -19,9 +19,10 @@ export function enhanceSelect(select: HTMLSelectElement): HTMLElement {
 
   function renderOptions() {
     list.innerHTML = '';
-    Array.from(select.options).forEach((opt) => {
+    Array.from(select.options).forEach((opt, i) => {
       const item = document.createElement('div');
       item.className = 'gr-select-option' + (opt.value === select.value ? ' active' : '');
+      item.style.animationDelay = i * 30 + 'ms';
       item.textContent = opt.textContent ?? '';
       item.addEventListener('click', () => {
         select.value = opt.value;
