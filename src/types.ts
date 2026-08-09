@@ -12,7 +12,7 @@ export const PILARES: { id: PilarId; label: string; icon: string; short: string 
   { id: 'limites_asertividad', label: 'Límites y asertividad', icon: '⊘', short: 'Límites' },
   { id: 'tolerancia_incertidumbre', label: 'Tolerancia a la incertidumbre', icon: '◐', short: 'Incertidumbre' },
   { id: 'soberania_material', label: 'Soberanía material', icon: '▲', short: 'Soberanía' },
-  { id: 'presencia_fisica', label: 'Presencia física', icon: '✦', short: 'Físico' },
+  { id: 'presencia_fisica', label: 'Cuidado personal', icon: '✦', short: 'Cuidado' },
 ];
 
 export const PILARES_COHERENCIA: PilarId[] = ['soberania_material', 'presencia_fisica'];
