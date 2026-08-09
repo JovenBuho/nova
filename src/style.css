@@ -254,6 +254,17 @@ input, select, textarea {
   font-size: 14px;
 }
 
+/* El navegador pinta <option> en blanco/negro por defecto si no se fija color-scheme. */
+select { color-scheme: dark; }
+select option {
+  background: #140406;
+  color: var(--gr-text);
+}
+select option:checked {
+  background: var(--gr-purple);
+  color: #000000;
+}
+
 textarea { resize: vertical; min-height: 54px; }
 
 .rango-hint { font-size: 12px; color: var(--gr-text-dim); }
