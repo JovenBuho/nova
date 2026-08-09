@@ -26,10 +26,17 @@ export function enhanceSelect(select: HTMLSelectElement): HTMLElement {
       item.addEventListener('click', () => {
         select.value = opt.value;
         select.dispatchEvent(new Event('change', { bubbles: true }));
+        syncActive();
         syncTrigger();
         close();
       });
       list.appendChild(item);
+    });
+  }
+
+  function syncActive() {
+    Array.from(list.children).forEach((item, i) => {
+      item.classList.toggle('active', select.options[i]?.value === select.value);
     });
   }
 
@@ -43,7 +50,6 @@ export function enhanceSelect(select: HTMLSelectElement): HTMLElement {
   }
 
   function open() {
-    renderOptions();
     list.classList.add('gr-select-list--open');
     trigger.classList.add('open');
   }
@@ -55,6 +61,7 @@ export function enhanceSelect(select: HTMLSelectElement): HTMLElement {
   });
   document.addEventListener('click', close);
 
+  renderOptions();
   syncTrigger();
   select.classList.add('gr-select-native');
   wrap.append(select, trigger, list);
