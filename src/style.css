@@ -9,8 +9,8 @@
   --gr-warn: #ff1744;
   --gr-text: #f5f5f5;
   --gr-text-dim: #999999;
-  --gr-bottleneck: #ff1744;
-  --gr-bottleneck-glow: rgba(255, 0, 51, 0.75);
+  --gr-bottleneck: #ffffff;
+  --gr-bottleneck-glow: rgba(255, 255, 255, 0.75);
   --gr-border: rgba(255, 255, 255, 0.08);
   --gr-glass-blur: blur(20px) saturate(160%);
   --font-display: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
@@ -142,7 +142,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0 0 8px
   box-shadow: 0 0 12px var(--gr-bottleneck-glow) inset;
 }
 .pilar-block.bottleneck .bar-superficie {
-  background: rgba(255, 23, 68, 0.35);
+  background: rgba(255, 255, 255, 0.35);
 }
 .pilar-block.bottleneck .pilar-percent {
   color: var(--gr-bottleneck);
