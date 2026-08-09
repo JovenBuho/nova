@@ -3,11 +3,11 @@ function buildOverlay(message: string, buttons: { label: string; className: stri
   const promise = new Promise<boolean>((resolve) => (resolveFn = resolve));
 
   const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(10,14,23,0.75);display:flex;align-items:center;justify-content:center;z-index:1000;';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:1000;';
 
   const box = document.createElement('div');
   box.style.cssText =
-    'background:var(--nova-bg-panel);border:1px solid var(--nova-purple);border-radius:10px;padding:20px 24px;max-width:360px;font-family:var(--font-body);color:var(--nova-text);box-shadow:0 0 24px var(--nova-suelo-glow);';
+    'background:var(--nova-bg-panel);backdrop-filter:var(--nova-glass-blur);-webkit-backdrop-filter:var(--nova-glass-blur);border:1px solid var(--nova-purple);border-radius:10px;padding:20px 24px;max-width:360px;font-family:var(--font-body);color:var(--nova-text);box-shadow:0 0 24px var(--nova-suelo-glow);';
 
   const p = document.createElement('div');
   p.textContent = message;
