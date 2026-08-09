@@ -1,6 +1,6 @@
 :root {
   --nova-bg: #000000;
-  --nova-bg-panel: #0a0a0a;
+  --nova-bg-panel: rgba(30, 10, 14, 0.45);
   --nova-purple: #ff1744;
   --nova-suelo: #ff0033;
   --nova-suelo-glow: rgba(255, 0, 51, 0.75);
@@ -10,7 +10,8 @@
   --nova-text: #f5f5f5;
   --nova-text-dim: #999999;
   --nova-bottleneck: #555555;
-  --nova-border: #2a0508;
+  --nova-border: rgba(255, 255, 255, 0.08);
+  --nova-glass-blur: blur(20px) saturate(160%);
   --font-display: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
@@ -37,6 +38,12 @@ nav.tabs {
   margin-bottom: 28px;
   border-bottom: 1px solid var(--nova-border);
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nova-bg-panel);
+  backdrop-filter: var(--nova-glass-blur);
+  -webkit-backdrop-filter: var(--nova-glass-blur);
 }
 
 nav.tabs button {
@@ -89,7 +96,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0 0 8px
 
 .bar-wrap {
   position: relative;
-  background: #0d1119;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--nova-border);
   border-radius: 8px;
   height: 22px;
@@ -133,6 +140,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0 0 8px
   border: 1px solid var(--nova-border);
   border-radius: 10px;
   background: var(--nova-bg-panel);
+  backdrop-filter: var(--nova-glass-blur);
+  -webkit-backdrop-filter: var(--nova-glass-blur);
 }
 
 .pilar-head {
@@ -182,6 +191,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0 0 8px
   left: 50%;
   transform: translateX(-50%);
   background: var(--nova-bg-panel);
+  backdrop-filter: var(--nova-glass-blur);
+  -webkit-backdrop-filter: var(--nova-glass-blur);
   border: 1px solid var(--nova-purple);
   box-shadow: 0 0 24px var(--nova-suelo-glow);
   color: var(--nova-text);
@@ -205,6 +216,8 @@ form.decision-form {
   border: 1px solid var(--nova-border);
   border-radius: 10px;
   background: var(--nova-bg-panel);
+  backdrop-filter: var(--nova-glass-blur);
+  -webkit-backdrop-filter: var(--nova-glass-blur);
   margin-bottom: 28px;
 }
 
@@ -217,7 +230,7 @@ label {
 }
 
 input, select, textarea {
-  background: #0d1119;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--nova-border);
   border-radius: 6px;
   color: var(--nova-text);
