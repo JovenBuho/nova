@@ -45,6 +45,7 @@ function render() {
   app.appendChild(nav);
 
   const screen = document.createElement('div');
+  screen.className = 'screen';
   app.appendChild(screen);
 
   switch (currentTab) {

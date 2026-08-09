@@ -4,6 +4,9 @@ import { saveLocalCache, todayISO } from '../storage';
 
 const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Un valor de 0.1% mide 0 píxeles: sin suelo mínimo la barra es invisible y la UI parece muerta.
+const visibleWidth = (pct: number) => (pct > 0 ? `max(${pct}%, 6px)` : '0%');
+
 function animateNumber(el: HTMLElement, to: number, decimals = 1) {
   if (reduceMotion()) {
     el.textContent = to.toFixed(decimals) + '%';
@@ -101,15 +104,15 @@ export function renderDashboard(container: HTMLElement, store: Store) {
 
     const delay = reduceMotion() ? 0 : i * 120;
     setTimeout(() => {
-      barSuelo.style.width = estado.suelo + '%';
-      barSuperficie.style.width = estado.superficie + '%';
+      barSuelo.style.width = visibleWidth(estado.suelo);
+      barSuperficie.style.width = visibleWidth(estado.superficie);
       animateNumber(pctSpan, estado.total);
     }, delay);
   });
 
   setTimeout(() => {
-    globalBarSuelo.style.width = globalSuelo + '%';
-    globalBarSuperficie.style.width = globalSuperficie + '%';
+    globalBarSuelo.style.width = visibleWidth(globalSuelo);
+    globalBarSuperficie.style.width = visibleWidth(globalSuperficie);
     animateNumber(globalNum, global);
   }, reduceMotion() ? 0 : 60);
 

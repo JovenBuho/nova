@@ -294,10 +294,89 @@ th { color: var(--gr-text-dim); font-weight: 500; text-transform: uppercase; fon
 
 .io-row { display: flex; gap: 8px; margin: 24px 0 8px; }
 
+/* --- Movimiento --- */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.screen { animation: rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Entrada escalonada de las tarjetas */
+.pilar-block { animation: rise 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.pilar-block:nth-child(2) { animation-delay: 60ms; }
+.pilar-block:nth-child(3) { animation-delay: 120ms; }
+.pilar-block:nth-child(4) { animation-delay: 180ms; }
+.pilar-block:nth-child(5) { animation-delay: 240ms; }
+.pilar-block:nth-child(6) { animation-delay: 300ms; }
+.pilar-block:nth-child(7) { animation-delay: 360ms; }
+
+.pilar-block {
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.pilar-block:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 23, 68, 0.5);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 0, 51, 0.25);
+}
+
+/* Barrido de luz sobre el suelo consolidado */
+@keyframes sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
+
+.bar-suelo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: sweep 2.8s ease-in-out infinite;
+}
+
+/* Latido del porcentaje global */
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 12px var(--gr-suelo-glow), 0 0 32px var(--gr-suelo-glow); }
+  50% { text-shadow: 0 0 18px var(--gr-suelo-glow), 0 0 52px var(--gr-suelo-glow); }
+}
+
+.global-percent { animation: pulse-glow 3.5s ease-in-out infinite; }
+
+/* Respuesta al tacto */
+nav.tabs button { transition: color 200ms ease, background 200ms ease; }
+nav.tabs button:hover { background: rgba(255, 255, 255, 0.04); }
+
+button.primary, button.secondary, button.danger {
+  transition: transform 150ms ease, box-shadow 250ms ease, background 200ms ease;
+}
+button.primary:hover { box-shadow: 0 0 16px var(--gr-suelo-glow), 0 0 40px var(--gr-suelo-glow); }
+button.secondary:hover { background: rgba(255, 255, 255, 0.06); color: var(--gr-text); }
+button.danger:hover { background: rgba(255, 23, 68, 0.12); }
+button.primary:active, button.secondary:active, button.danger:active { transform: scale(0.96); }
+
+input, select, textarea { transition: border-color 200ms ease, box-shadow 200ms ease; }
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--gr-purple);
+  box-shadow: 0 0 0 3px rgba(255, 23, 68, 0.15);
+}
+
+tbody tr { transition: background 200ms ease; }
+tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+.hito-item { transition: background 200ms ease, padding-left 200ms ease; }
+.hito-item:hover { background: rgba(255, 255, 255, 0.03); padding-left: 6px; }
+
 @media (prefers-reduced-motion: reduce) {
   .bar-suelo, .bar-superficie { transition: none; }
   .consolidating .bar-suelo { animation: none; }
   .toast { animation: none; }
+  .screen, .pilar-block { animation: none; }
+  .bar-suelo::after, .global-percent { animation: none; }
+  .pilar-block:hover { transform: none; }
+  button.primary:active, button.secondary:active, button.danger:active { transform: none; }
 }
 
 @media (max-width: 640px) {
