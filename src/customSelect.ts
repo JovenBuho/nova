@@ -22,7 +22,7 @@ export function enhanceSelect(select: HTMLSelectElement): HTMLElement {
     Array.from(select.options).forEach((opt, i) => {
       const item = document.createElement('div');
       item.className = 'gr-select-option' + (opt.value === select.value ? ' active' : '');
-      item.style.animationDelay = i * 30 + 'ms';
+      item.style.setProperty('--stagger-delay', i * 30 + 'ms');
       item.textContent = opt.textContent ?? '';
       item.addEventListener('click', () => {
         select.value = opt.value;
@@ -39,14 +39,22 @@ export function enhanceSelect(select: HTMLSelectElement): HTMLElement {
   }
 
   function close() {
-    list.hidden = true;
+    list.classList.remove('gr-select-list--open');
     trigger.classList.remove('open');
+    setTimeout(() => {
+      if (!list.classList.contains('gr-select-list--open')) list.hidden = true;
+    }, 200);
   }
 
+  // Requiere display:block un frame antes de añadir la clase que anima:
+  // sin ese frame de por medio, el navegador colapsa "aparecer" y "animar" en un solo paso y no se ve nada moverse.
   function open() {
     renderOptions();
     list.hidden = false;
     trigger.classList.add('open');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => list.classList.add('gr-select-list--open'));
+    });
   }
 
   trigger.addEventListener('click', (e) => {
