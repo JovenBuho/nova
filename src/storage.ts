@@ -33,6 +33,7 @@ export function saveLocalCache(store: Store): void {
 export function saveStore(store: Store): void {
   saveLocalCache(store);
   pushStore(store);
+  exportJSON(store);
 }
 
 export function exportJSON(store: Store): void {
