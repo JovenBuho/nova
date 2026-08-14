@@ -1,6 +1,5 @@
 import { PILARES, Store } from './types';
 import { pushStore } from './sync';
-import { getBackupDir, writeBackup } from './backupDir';
 
 const KEY = 'giuliano_rose_data_v1';
 const OLD_KEY = 'nova_data_v1';
@@ -34,12 +33,6 @@ export function saveLocalCache(store: Store): void {
 export function saveStore(store: Store): void {
   saveLocalCache(store);
   pushStore(store);
-  getBackupDir()
-    .then((dir) => {
-      if (dir) writeBackup(dir, `giuliano-rose-backup-${todayISO()}.json`, JSON.stringify(store, null, 2));
-      else exportJSON(store);
-    })
-    .catch(() => exportJSON(store));
 }
 
 export function exportJSON(store: Store): void {
