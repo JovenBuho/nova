@@ -2,6 +2,7 @@ import './style.css';
 import { loadStore, saveStore, saveLocalCache, exportJSON, importJSON } from './storage';
 import { alertMessage, confirmAction } from './confirm';
 import { initSync } from './sync';
+import { backupDirSupported, pickBackupDir } from './backupDir';
 import { renderDashboard } from './screens/dashboard';
 import { renderRegistro } from './screens/registro';
 import { renderContexto } from './screens/contexto';
@@ -96,6 +97,22 @@ function render() {
   });
 
   ioRow.append(exportBtn, importBtn, fileInput);
+
+  if (backupDirSupported()) {
+    const dirBtn = document.createElement('button');
+    dirBtn.className = 'secondary';
+    dirBtn.textContent = 'Elegir carpeta de respaldo automático';
+    dirBtn.addEventListener('click', async () => {
+      try {
+        await pickBackupDir();
+        await alertMessage('Carpeta elegida. Cada registro se guardará ahí automáticamente.');
+      } catch {
+        /* usuario canceló el selector */
+      }
+    });
+    ioRow.append(dirBtn);
+  }
+
   app.appendChild(ioRow);
 }
 
